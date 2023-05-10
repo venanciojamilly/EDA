@@ -1,0 +1,94 @@
+package tst;
+
+import java.util.*;
+
+public class removeLinkedList {
+	public static int[] trans(String[] arr) {
+		int[] numbers = new int[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			numbers[i] = Integer.parseInt(arr[i]);
+		}
+		return numbers;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int[] numbers = trans(sc.nextLine().split(" "));
+		int posicao = sc.nextInt();
+		sc.close();
+		LinkedList lista = new LinkedList();
+		for (int i = 0; i < numbers.length; i++) {
+			lista.addLast(numbers[i]);
+		}
+		lista.remove(posicao);
+		System.out.println(lista.toString());
+
+	}
+	class Node {
+		Node next;
+		Node previous;
+		int value;
+
+		public Node(int value) {
+			this.value = value;
+			this.next = null;
+			this.previous = null;
+		}
+
+	class Linkedlist {
+		 private int size;
+		 private Node tail;
+		 private Node head;
+
+		public Linkedlist() {
+			this.head = null;
+			this.tail = null;
+			this.size = 0;
+		}
+
+		public boolean isEmpty() {
+			return this.head == null;
+		}
+
+		public void addLast(int value) {
+			if (this.isEmpty()) {
+				Node newnode = new Node(value);
+				this.head = newnode;
+				this.tail = newnode;
+			} else {
+				Node newnode = new Node(value);
+				this.tail.next = newnode;
+				newnode.previous = this.tail;
+				this.tail = newnode;
+			}
+			this.size++;
+		}
+		public int size() {
+			return this.size;
+		}
+
+		public Node getNode(int index) {
+			if (index < 0 | index > size) {
+				throw new IllegalArgumentException();
+			}
+			Node aux = this.head;
+
+			for (int i = 0; i < index; i++) {
+				aux = aux.next;
+			}
+			return aux;
+		}
+
+		public int remove(int index) {
+			if (this.isEmpty()) {
+				return -1;
+			}
+			Node node = getNode(index);
+			node.previous.next = node.next;
+			node.next.previous = node.previous;
+			size--;
+			return node.value;
+		}
+	}
+	}
+}
